@@ -7,36 +7,36 @@ import (
 )
 
 func main() {
-	fmt.Println("Você vende maçãs. Defina o preço da unidade:")
+	fmt.Println("Insira uma lista de números inteiros, separados por vírgula:")
 
-	var precoUnidadeMacaStr string
-	fmt.Scan(&precoUnidadeMacaStr)
+	var listaNumerosInput string
+	fmt.Scan(&listaNumerosInput)
 
-	precoUnidadeMaca, err := strconv.ParseFloat(precoUnidadeMacaStr, 64)
-	if err != nil {
-		fmt.Println("erro ao converter o preço unitário da maçã de string para float64")
-		return
+	numeros := strings.Split(listaNumerosInput, ",")
+
+	fmt.Println(numeros)
+
+	// exemplo de lista
+	//[6 3 1 5 7]
+	// 0 1 2 3 4 (índices)
+	//numeros[0] - 6
+	//numeros[1] - 3
+
+	resultado := numeros[0] + numeros[1]
+	fmt.Println("Resultado:", resultado)
+
+	numerosInt := make([]int, 0, len(numeros)) // https://go.dev/tour/moretypes/13
+	for _, n := range numeros {
+		numInt, err := strconv.Atoi(n)
+		if err != nil {
+			fmt.Printf("erro ao tentar converter %s para inteiro\n", n)
+			continue
+		}
+		numerosInt = append(numerosInt, numInt)
 	}
 
-	fmt.Println("Uma cliente chegou. Quantos reais de maçã ela quer?")
+	fmt.Println(numerosInt)
 
-	var pedidoCliente string
-	fmt.Scan(&pedidoCliente) // R$10.50
-
-	valorPagamentoStr := strings.TrimPrefix(pedidoCliente, "R$")
-
-	valorPagamento, err := strconv.ParseFloat(valorPagamentoStr, 64)
-	if err != nil {
-		fmt.Println("erro ao converter valor do pagamento de string para float64")
-		return
-	}
-
-	// quantas maçãs a cliente conseguirá comprar?
-	qtdMacasCompradas := valorPagamento / precoUnidadeMaca // qual o tipo dessa variável resultado da divisão?
-
-	fmt.Printf("A cliente pode comprar %f maçãs com o valor de %f", qtdMacasCompradas, valorPagamento)
-
-	qtdMacasCompradasInt := int(qtdMacasCompradas)
-
-	fmt.Printf("A cliente pode comprar %d maçãs com o valor de %f", qtdMacasCompradasInt, valorPagamento)
+	res := numerosInt[0] + numerosInt[1]
+	fmt.Println(res)
 }
